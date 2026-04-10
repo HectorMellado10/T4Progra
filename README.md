@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Workshop Spring Boot 3.x + JDK 17 (Maven)
 
 Este repositorio es un **tutorial paso a paso** para clase/laboratorio.
@@ -235,3 +236,6 @@ Donde:
 - [ ] Endpoint nuevo implementado
 - [ ] Tests del endpoint nuevo en verde
 - [ ] Pruebas pasando (`mvn test`)
+=======
+# T4Progra
+>>>>>>> e6f7e1c09db9a6b77e0bd0757ae5fbcc9525d51f
