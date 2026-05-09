@@ -1,3 +1,4 @@
+
 package com.ejemplo.demo.api.controller;
 
 import com.ejemplo.demo.api.dto.EstadoResponse;
@@ -19,7 +20,6 @@ public class EstadoComparacionController implements DemoEstadoApi {
 
     @Override
     public ResponseEntity<EstadoResponse> actualizarSingleton(@PathVariable("valor") Integer valor) {
-        // Bean singleton de Spring: el valor queda persistido para llamadas posteriores.
         int actual = estadoSingletonService.actualizar(valor);
         return ResponseEntity.ok(new EstadoResponse("singleton", actual));
     }
@@ -36,7 +36,6 @@ public class EstadoComparacionController implements DemoEstadoApi {
 
     @Override
     public ResponseEntity<EstadoResponse> actualizarManual(@PathVariable("valor") Integer valor) {
-        // Clase sin @Service: se crea con new y su estado no persiste entre requests.
         EstadoManual estadoManual = new EstadoManual();
         estadoManual.setValor(valor);
         return ResponseEntity.ok(new EstadoResponse("manual", estadoManual.getValor()));
@@ -44,7 +43,6 @@ public class EstadoComparacionController implements DemoEstadoApi {
 
     @Override
     public ResponseEntity<EstadoResponse> obtenerManual() {
-        // Cada llamada inicia en 0 porque es una instancia nueva.
         EstadoManual estadoManual = new EstadoManual();
         return ResponseEntity.ok(new EstadoResponse("manual", estadoManual.getValor()));
     }

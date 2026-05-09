@@ -30,17 +30,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.6.0</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-   			 <groupId>org.springdoc</groupId>
-    		<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-    		<version>2.6.0</version>
-		</dependency>
     </dependencies>
 
     <build>
@@ -49,8 +48,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-            <!-- Paso 9: genera interfaces Spring desde el contrato YAML en fase generate-sources -->
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
@@ -65,7 +62,6 @@
                             <generatorName>spring</generatorName>
                             <apiPackage>com.ejemplo.demo.api.generated</apiPackage>
                             <modelPackage>com.ejemplo.demo.api.dto</modelPackage>
-                            <!-- No generar modelos: los DTOs ya existen en el proyecto -->
                             <generateModels>false</generateModels>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
@@ -74,7 +70,6 @@
                                 <useJakartaEe>true</useJakartaEe>
                                 <openApiNullable>false</openApiNullable>
                             </configOptions>
-                            <!-- Mapear schemas YAML a los DTOs Java existentes -->
                             <importMappings>
                                 <importMapping>SaludoRequest=com.ejemplo.demo.api.dto.SaludoRequest</importMapping>
                                 <importMapping>SaludoResponse=com.ejemplo.demo.api.dto.SaludoResponse</importMapping>
@@ -86,8 +81,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Registra las fuentes generadas para que compilen en IDE y CI -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -106,7 +99,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 </project>

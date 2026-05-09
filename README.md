@@ -222,6 +222,7 @@ Donde:
 - `r` = tasa mensual (`tasaAnual / 12 / 100`)
 - `n` = numero de meses
 
+<<<<<<< HEAD
 ### Paso 9 - Contract-first: OpenAPI en YAML + OpenAPI Generator *(desafio)*
 
 Objetivo: adoptar enfoque **contract-first**: definir la API en un archivo OpenAPI (YAML), generar desde Maven las **interfaces** Spring que describen cada endpoint, y hacer que sus `@RestController` **implementen** esas interfaces. **No deben cambiar** las rutas ni la forma del JSON que ya probamos en pasos anteriores (los `curl` y `mvn test` deben seguir comportandose igual).
@@ -303,6 +304,10 @@ curl http://localhost:8080/api/v1/demo/estado/manual
 
 La consulta devuelve `0`, porque cada endpoint crea una instancia nueva.
 
+=======
+---
+
+>>>>>>> a409d97ff5bcd05eff9edf0005c4cdddb6ec9c7a
 ## Checklist final
 
 - [ ] Proyecto corre en local
@@ -315,6 +320,7 @@ La consulta devuelve `0`, porque cada endpoint crea una instancia nueva.
 - [ ] Endpoint nuevo implementado
 - [ ] Tests del endpoint nuevo en verde
 - [ ] Pruebas pasando (`mvn test`)
+<<<<<<< HEAD
 - [ ] (Paso 9) YAML contract-first completo; interfaces generadas desde `pom.xml`
 - [ ] (Paso 9) Controladores implementan interfaces; rutas y JSON sin regresiones
 
@@ -333,4 +339,6 @@ Como siguiente etapa del curso, este proyecto incorpora un incremento progresivo
   - Exponer 2 APIs con CRUD completo y buenas practicas.
 
 Recomendacion para clase: pueden realizar una demo inicial con H2 para reducir friccion de entorno, y luego completar la entrega final siguiendo los lineamientos de `TareaJpa.md`.
+=======
+>>>>>>> a409d97ff5bcd05eff9edf0005c4cdddb6ec9c7a
 
