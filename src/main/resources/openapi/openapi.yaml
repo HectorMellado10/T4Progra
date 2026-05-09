@@ -1,0 +1,216 @@
+openapi: 3.0.3
+info:
+  title: Spring Boot API Demo Progra 3
+  version: v1.0.0
+  description: API de referencia para taller Spring Boot - contrato OpenAPI contract-first
+
+tags:
+  - name: workshop
+    description: Operaciones del taller base
+  - name: simulaciones
+    description: Simulaciones financieras
+  - name: demo-estado
+    description: Demo comparativa singleton vs instancia manual
+
+paths:
+
+  /api/v1:
+    get:
+      tags: [workshop]
+      operationId: getWorkshopHealth
+      summary: Health check del workshop
+      responses:
+        '200':
+          description: Estado del servicio
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+
+  /api/v1/saludos:
+    get:
+      tags: [workshop]
+      operationId: saludarPorGet
+      summary: Saludo por GET con parametro query
+      parameters:
+        - name: nombre
+          in: query
+          required: false
+          schema:
+            type: string
+            default: Mundo
+      responses:
+        '200':
+          description: Saludo generado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaludoResponse'
+    post:
+      tags: [workshop]
+      operationId: saludarPorPost
+      summary: Saludo por POST con cuerpo JSON
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaludoRequest'
+      responses:
+        '200':
+          description: Saludo generado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaludoResponse'
+        '400':
+          description: Error de validacion
+
+  /api/v1/simulaciones/prestamo:
+    post:
+      tags: [simulaciones]
+      operationId: simularPrestamo
+      summary: Simular cuota mensual de un prestamo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrestamoRequest'
+      responses:
+        '200':
+          description: Resultado de la simulacion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrestamoResponse'
+        '400':
+          description: Error de validacion
+
+  /api/v1/demo/estado/singleton/{valor}:
+    post:
+      tags: [demo-estado]
+      operationId: actualizarSingleton
+      summary: Actualizar valor del bean singleton
+      parameters:
+        - name: valor
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Estado actual del singleton
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstadoResponse'
+
+  /api/v1/demo/estado/singleton:
+    get:
+      tags: [demo-estado]
+      operationId: obtenerSingleton
+      summary: Obtener valor actual del bean singleton
+      responses:
+        '200':
+          description: Estado actual del singleton
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstadoResponse'
+
+  /api/v1/demo/estado/singleton/reset:
+    post:
+      tags: [demo-estado]
+      operationId: reiniciarSingleton
+      summary: Reiniciar el bean singleton a cero
+      responses:
+        '200':
+          description: Estado reiniciado a cero
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstadoResponse'
+
+  /api/v1/demo/estado/manual/{valor}:
+    post:
+      tags: [demo-estado]
+      operationId: actualizarManual
+      summary: Actualizar valor en instancia manual (sin Spring)
+      parameters:
+        - name: valor
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Estado de la instancia manual (no persiste)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstadoResponse'
+
+  /api/v1/demo/estado/manual:
+    get:
+      tags: [demo-estado]
+      operationId: obtenerManual
+      summary: Obtener valor de instancia manual (siempre 0)
+      responses:
+        '200':
+          description: Estado de la instancia manual
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstadoResponse'
+
+components:
+  schemas:
+
+    SaludoRequest:
+      type: object
+      required: [nombre]
+      properties:
+        nombre:
+          type: string
+          maxLength: 50
+
+    SaludoResponse:
+      type: object
+      properties:
+        mensaje:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+    PrestamoRequest:
+      type: object
+      required: [monto, tasaAnual, meses]
+      properties:
+        monto:
+          type: number
+        tasaAnual:
+          type: number
+        meses:
+          type: integer
+
+    PrestamoResponse:
+      type: object
+      properties:
+        cuotaMensual:
+          type: number
+        interesTotal:
+          type: number
+        totalPagar:
+          type: number
+
+    EstadoResponse:
+      type: object
+      properties:
+        tipo:
+          type: string
+        valorActual:
+          type: integer
